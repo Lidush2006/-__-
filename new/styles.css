@@ -1,0 +1,90 @@
+body {
+    background: #7f9ab3 url('https://www.solidbackgrounds.com/images/3840x2160/3840x2160-white-solid-color-background.jpg') no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+}
+.main-logo {
+    max-width: 522px; /* Увеличиваем максимальную ширину */
+    width: 158%;
+    height: auto;
+    margin: 18px 0;
+}
+
+.main-logo img {
+    width: 100%;
+    height: auto;
+    max-height: 156px; /* Увеличиваем максимальную высоту */
+    object-fit: contain;
+}
+p {
+    background-color: black;}
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+nav a {
+    
+    color: #fff;
+    margin: 0 12px;
+    text-decoration: none;
+}
+
+main {
+    padding: 12px;
+}
+
+.ads-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.ad-card img {
+    width: 100%;
+    height: auto;
+}
+
+.ad-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 0rem;
+    background: #333;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

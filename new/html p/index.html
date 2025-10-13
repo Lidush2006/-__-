@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рощинский Дом</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 1;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a2530);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .header-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .main-logo {
+            max-width: 500px; /* УВЕЛИЧЕННЫЙ РАЗМЕР */
+            width: 100%;
+            height: auto;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .main-logo img {
+            width: 100%;
+            height: auto;
+            max-height: 150px; /* УВЕЛИЧЕННАЯ ВЫСОТА */
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        
+        .main-logo img:hover {
+            transform: scale(1.02); /* Легкое увеличение при наведении */
+        }
+        
+        .header-text {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .site-description {
+            margin: 0;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            color: white;
+            font-weight: 300;
+        }
+        
+        nav {
+            margin-top: 25px;
+            display: flex;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .ads-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 30px 20px;
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .ad-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 320px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .ad-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .image-slider {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .slider-container {
+            display: flex;
+            transition: transform 0.4s ease;
+            height: 100%;
+        }
+        
+        .slider-container img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slider-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .slider-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            margin: 0 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        
+        .slider-arrow:hover {
+            background: rgba(0,0,0,0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .slider-arrow.prev {
+            left: 15px;
+        }
+        
+        .slider-arrow.next {
+            right: 15px;
+        }
+        
+        .ad-content {
+            padding: 20px;
+        }
+        
+        .ad-content h3 {
+            margin: 0 0 12px 0;
+            color: #2c3e50;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .ad-content p {
+            margin: 8px 0;
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        .ad-content strong {
+            color: #2c3e50;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #1a2530);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 40px;
+        }
+        
+        footer p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .main-logo {
+                max-width: 400px;
+            }
+            
+            .main-logo img {
+                max-height: 120px;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            nav a {
+                text-align: center;
+                padding: 12px;
+            }
+            
+            .ads-list {
+                padding: 20px 15px;
+                gap: 20px;
+            }
+            
+            .ad-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+        
+        @media (max-width: 481px) {
+            .main-logo {
+                max-width: 300px;
+            }
+            
+            .main-logo img {
+                max-height: 100px;
+            }
+            
+            .site-description {
+                font-size: 1.1rem;
+            }
+            
+            header {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <!-- БОЛЬШОЙ ЛОГОТИП -->
+            <div class="main-logo">
+                <img src="logo.png" alt="Рощинский Дом - аренда и покупка квартир">
+            </div>
+            
+            <div class="header-text">
+                <p class="site-description">САЙТ АРЕНДЫ И ПОКУПКИ КВАРТИР</p>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="add.html">Добавить объявление</a>
+            <a href="support.html">Техподдержка</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="ads-list">
+            <!-- Пример объявления -->
+            <div class="ad-card">
+                <div class="image-slider" id="slider1">
+                    <div class="slider-container">
+                        <img src="https://rosndv.ru/files/images/items/209/209309m2f5473a5.jpg" alt="Квартира - гостиная">
+                        <img src="https://avatars.mds.yandex.net/i?id=05028b2cb7377d0406a0603a349dca6b410d4f5a-10870819-images-thumbs&n=13" alt="Квартира - кухня">
+                    </div>
+                    <button class="slider-arrow prev">&#10094;</button>
+                    <button class="slider-arrow next">&#10095;</button>
+                    <div class="slider-nav">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                </div>
+                <div class="ad-content">
+                    <h3>2-комнатная в центре</h3>
+                    <p>Просторная 2-комнатная квартира в центре города. Ремонт евростандарт.</p>
+                    <p><strong>Цена:</strong> договарная</p>
+                    <p><strong>Телефон:</strong> +7 123 456 7890</p>
+                </div>
+            </div>
+            <!-- пример 2 объявления -->
+                        <div class="ad-card">
+                <div class="image-slider" id="slider1">
+                    <div class="slider-container">
+                        <img src="https://rosndv.ru/files/images/items/209/209309m2f5473a5.jpg" alt="Квартира - гостиная">
+                        <img src="https://avatars.mds.yandex.net/i?id=05028b2cb7377d0406a0603a349dca6b410d4f5a-10870819-images-thumbs&n=13" alt="Квартира - кухня">
+                    </div>
+                    <button class="slider-arrow prev">&#10094;</button>
+                    <button class="slider-arrow next">&#10095;</button>
+                    <div class="slider-nav">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                </div>
+                <div class="ad-content">
+                    <h3>2-комнатная в центре</h3>
+                    <p>Просторная 2-комнатная квартира в центре города. Ремонт евростандарт.</p>
+                    <p><strong>Цена:</strong> договарная</p>
+                    <p><strong>Телефон:</strong> +7 123 456 7890</p>
+                </div>
+            </div>
+
+            <!-- Другие объявления -->
+             <div class="ad-card">
+                <div class="image-slider" id="slider1">
+                    <div class="slider-container">
+                        <img src="https://rosndv.ru/files/images/items/209/209309m2f5473a5.jpg" alt="Квартира - гостиная">
+                        <img src="https://avatars.mds.yandex.net/i?id=05028b2cb7377d0406a0603a349dca6b410d4f5a-10870819-images-thumbs&n=13" alt="Квартира - кухня">
+                    </div>
+                    <button class="slider-arrow prev">&#10094;</button>
+                    <button class="slider-arrow next">&#10095;</button>
+                    <div class="slider-nav">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                </div>
+                <div class="ad-content">
+                    <h3>2-комнатная в центре</h3>
+                    <p>Просторная 2-комнатная квартира в центре города. Ремонт евростандарт.</p>
+                    <p><strong>Цена:</strong> договарная</p>
+                    <p><strong>Телефон:</strong> +7 123 456 7890</p>
+                </div>
+            </div>
+            <!-- объявление -->
+             <div class="ad-card">
+                <div class="image-slider" id="slider1">
+                    <div class="slider-container">
+                        <img src="https://rosndv.ru/files/images/items/209/209309m2f5473a5.jpg" alt="Квартира - гостиная">
+                        <img src="https://avatars.mds.yandex.net/i?id=05028b2cb7377d0406a0603a349dca6b410d4f5a-10870819-images-thumbs&n=13" alt="Квартира - кухня">
+                    </div>
+                    <button class="slider-arrow prev">&#10094;</button>
+                    <button class="slider-arrow next">&#10095;</button>
+                    <div class="slider-nav">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                </div>
+                <div class="ad-content">
+                    <h3>2-комнатная в центре</h3>
+                    <p>Просторная 2-комнатная квартира в центре города. Ремонт евростандарт.</p>
+                    <p><strong>Цена:</strong> договарная</p>
+                    <p><strong>Телефон:</strong> +7 123 456 7890</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Рощинский Дом - сайт аренды и покупки квартир</p>
+        <p>Телефон: +7 (495) 123-45-67 | Email: info@rosdom.ru</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliders = document.querySelectorAll('.image-slider');
+            
+            sliders.forEach(slider => {
+                const container = slider.querySelector('.slider-container');
+                const slides = container.querySelectorAll('img');
+                const dots = slider.querySelectorAll('.slider-dot');
+                const prevBtn = slider.querySelector('.slider-arrow.prev');
+                const nextBtn = slider.querySelector('.slider-arrow.next');
+                
+                let currentSlide = 0;
+                
+                function updateSlide() {
+                    container.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlide);
+                    });
+                }
+                
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    updateSlide();
+                }
+                
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    updateSlide();
+                }
+                
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+                
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        currentSlide = index;
+                        updateSlide();
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

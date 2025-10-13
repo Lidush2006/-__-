@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отправить объявление</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1f2d3b 0%, #401f62 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+         
+            background: linear-gradient(135deg, #2c3e50, #1a2530);
+            color: #ffffff;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        nav {
+            margin-top: 25px;
+            display: flex;
+            gap: 25px;
+        }
+        
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        
+        nav a:hover {
+            background: #f8f9fa;
+        }
+        
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .ad-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        input, textarea, select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #ffffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            background: #ffffff;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        #preview {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+        }
+        
+        .notification.success {
+            background: #27ae60;
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: #e74c3c;
+            transform: translateX(0);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 600px) {
+            main {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .submit-btn {
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Добавить объявление</h1> 
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="add.html">Добавить</a>
+            <a href="support.html">Техподдержка</a>
+        </nav>
+    </header>
+
+    <main>
+        <form id="adForm" class="ad-form">
+            <h2>Форма объявления</h2>
+            
+            <div class="form-group">
+                <label for="name">Ваше имя:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Ваш Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Телефон:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 999-99-99">
+            </div>
+            
+            <div class="form-group">
+                <label for="title">Заголовок объявления:</label>
+                <input type="text" id="title" name="title" required placeholder="Например: 2-комнатная в центре">
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Описание квартиры:</label>
+                <textarea id="description" name="description" rows="5" required placeholder="Опишите квартиру, район, особенности..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="price">Цена (руб.):</label>
+                <input type="number" id="price" name="price" required placeholder="25000">
+            </div>
+            
+            <div class="form-group">
+                <label for="rooms">Количество комнат:</label>
+                <select id="rooms" name="rooms" required>
+                    <option value="">Выберите...</option>
+                    <option value="1">1 комната</option>
+                    <option value="2">2 комнаты</option>
+                    <option value="3">3 комнаты</option>
+                    <option value="4">4+ комнат</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="photos">Фотографии квартиры (макс. 3):</label>
+                <input type="file" id="photos" name="photos" accept="image/*" multiple max="3">
+                <div id="preview"></div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Отправить на модерацию</button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Отправка объявления...</p>
+        </div>
+    </main>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Замените эти данные на свои реальные
+        const SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID';
+        const TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';
+        const USER_ID = 'YOUR_EMAILJS_USER_ID';
+        const YOUR_EMAIL = 'your-email@example.com'; // Ваш email для уведомлений
+
+        // Инициализация EmailJS
+        (function() {
+            emailjs.init(USER_ID);
+        })();
+
+        // Предпросмотр фотографий
+        document.getElementById('photos').addEventListener('change', function(e) {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            
+            const files = e.target.files;
+            if (files.length > 3) {
+                showNotification('Максимум 3 фотографии!', 'error');
+                this.value = '';
+                return;
+            }
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (!file.type.match('image.*')) {
+                    showNotification('Пожалуйста, выбирайте только изображения', 'error');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-image';
+                    preview.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Отправка формы
+        document.getElementById('adForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const formProps = Object.fromEntries(formData);
+            
+            // Валидация
+            if (!formProps.name || !formProps.email || !formProps.phone || !formProps.title || !formProps.description || !formProps.price) {
+                showNotification('Пожалуйста, заполните все обязательные поля', 'error');
+                return;
+            }
+            
+            // Показываем загрузку
+            document.getElementById('loading').style.display = 'block';
+            document.querySelector('.submit-btn').disabled = true;
+            
+            try {
+                // Отправляем email через EmailJS
+                const templateParams = {
+                    to_email: YOUR_EMAIL,
+                    from_name: formProps.name,
+                    from_email: formProps.email,
+                    phone: formProps.phone,
+                    title: formProps.title,
+                    description: formProps.description,
+                    price: formProps.price + ' руб.',
+                    rooms: formProps.rooms + ' комнат(ы)',
+                    date: new Date().toLocaleString('ru-RU')
+                };
+                
+                await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
+                
+                showNotification('Объявление успешно отправлено на модерацию!', 'success');
+                document.getElementById('adForm').reset();
+                document.getElementById('preview').innerHTML = '';
+                
+            } catch (error) {
+                console.error('Ошибка отправки:', error);
+                showNotification('Ошибка при отправке. Попробуйте еще раз.', 'error');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.querySelector('.submit-btn').disabled = false;
+            }
+        });
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            
+            setTimeout(() => {
+                notification.className = 'notification';
+            }, 5000);
+        }
+
+        // Маска для телефона
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.startsWith('7') || value.startsWith('8')) {
+                value = value.substring(1);
+            }
+            if (value.length > 0) {
+                value = '+7 (' + value;
+                if (value.length > 7) value = value.substring(0, 7) + ') ' + value.substring(7);
+                if (value.length > 12) value = value.substring(0, 12) + '-' + value.substring(12);
+                if (value.length > 15) value = value.substring(0, 15) + '-' + value.substring(15);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
